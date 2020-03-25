@@ -30,19 +30,22 @@ df.columns = new_header
 df.index = pd.to_datetime(df.index)
 df.index.names = ['Date']
 
-# me quedo con los datos que me "importan"
+# I select the countries that I want to look at
 new_df = df[['Italy', 'Argentina', 'Spain', 'Brazil']]
 new_df['China'] = df['China'].sum(axis=1)
 new_df['USA'] = df['US'].sum(axis=1)
 new_df['Australia'] = df['Australia'].sum(axis=1)
 
-# para normalizar la data, uso la poblacion total y normalizo cada 100000 habitantes
+# For the normalization of the cases, I use the amount of cases every 100.000 inhabitants
+# TODO download a .csv with the data of the population of every contunry, must be something like that isnt it?
+
 pob = np.array([[60.48, 44.27, 46.66, 209.3, 1386, 327.2, 24.6]])*1e6
 poblacion = pd.DataFrame(pob, index=['Population'], columns=new_df.columns)
 new_df_normalized = 1e5*new_df/poblacion.values
 
 
-# ploteamos
+# plotting, the size is A4 page, I believe!
+# labels and titles in spanish
 
 plt.close('all')
 
